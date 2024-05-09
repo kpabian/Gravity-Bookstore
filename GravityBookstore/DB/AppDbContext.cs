@@ -6,17 +6,17 @@ namespace GravityBookstore.DB;
 
 public class AppDbContext : DbContext
 {
-    protected readonly IConfiguration _configuration;
-
-    public AppDbContext(IConfiguration configuration)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-        _configuration = configuration;
+    }
+    public AppDbContext()
+    {
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("WebApiDatabase"));
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+      //  optionsBuilder.UseNpgsql("Host = localhost; Database = Bookstore; username = postgres; Password = 1234");
+    //}
 
     public DbSet<Author> Authors { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
@@ -132,7 +132,49 @@ public class AppDbContext : DbContext
             entity.HasOne(e => e.Country)
                 .WithMany(e => e.Addresses)
                 .HasForeignKey(e => e.Country_id);
-        }); 
+        });
+        
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.HasKey(e => e.Customer_id);
+        });
+
+        modelBuilder.Entity<Country>(entity =>
+        {
+            entity.HasKey(e => e.Country_id);
+        });
+
+        modelBuilder.Entity<Author>(entity =>
+        {
+            entity.HasKey(e => e.Author_id);
+        });
+
+        modelBuilder.Entity<Publisher>(entity =>
+        {
+            entity.HasKey(e => e.Publisher_id);
+        });
+
+        modelBuilder.Entity<Book_language>(entity =>
+        {
+            entity.HasKey(e => e.Language_id);
+        });
+
+        modelBuilder.Entity<Address_status>(entity =>
+        {
+            entity.HasKey(e => e.Status_id);
+        });
+
+        modelBuilder.Entity<Shipping_method>(entity =>
+        {
+            entity.HasKey(e => e.Method_id);
+        });
+
+        modelBuilder.Entity<Order_status>(entity =>
+        {
+            entity.HasKey(e => e.Status_id);
+        });
+
+
         
     }
 }
