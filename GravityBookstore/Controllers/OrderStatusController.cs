@@ -6,8 +6,5 @@ namespace GravityBookstore.Controllers;
 [ApiController]
 public class OrderStatusController : Controller
 {
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }

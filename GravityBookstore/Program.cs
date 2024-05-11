@@ -1,5 +1,9 @@
 
 using GravityBookstore.DB;
+using GravityBookstore.IRepositories;
+using GravityBookstore.IServices;
+using GravityBookstore.Repositories;
+using GravityBookstore.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -22,6 +26,45 @@ namespace GravityBookstore
             builder.Services.AddControllers();
            
             builder.Services.AddDbContext<AppDbContext>();
+
+            //AutoMapper
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //Services
+            builder.Services.AddScoped<IAddressService, AddressService>();
+            builder.Services.AddScoped<IAddressStatusService, AddressStatusService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IBookAuthorService, BookAuthorService>();
+            builder.Services.AddScoped<IBookLanguageService, BookLanguageService>();
+            builder.Services.AddScoped<ICountryService, CountryService>();
+            builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<ICustOrderService, CustOrderService>();
+            builder.Services.AddScoped<IOrderHistoryService, OrderHistoryService>();
+            builder.Services.AddScoped<IOrderLineService, OrderLineService>();
+            builder.Services.AddScoped<IOrderStatusService, OrderStatusService>();
+            builder.Services.AddScoped<IPublisherService, PublisherService>();
+            builder.Services.AddScoped<IShippingMethodService, ShippingMethodService>();
+
+            //Repositories
+            builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+            builder.Services.AddScoped<IAddressStatusRepository, AddressStatusRepository>();
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
+            builder.Services.AddScoped<IBookLanguageRepository, BookLanguageRepository>();
+            builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+            builder.Services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ICustOrderRepository, CustOrderRepository>();
+            builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
+            builder.Services.AddScoped<IOrderLineRepository, OrderLineRepository>();
+            builder.Services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
+            builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+            builder.Services.AddScoped<IShippingMethodRepository, ShippingMethodRepository>();
+
+
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>

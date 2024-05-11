@@ -6,8 +6,5 @@ namespace GravityBookstore.Controllers;
 [ApiController]
 public class CountryController : Controller
 {
-    public IActionResult Index()
-    {
-        return View();
-    }
+   
 }

@@ -6,8 +6,5 @@ namespace GravityBookstore.Controllers;
 [ApiController]
 public class BookLanguageController : Controller
 {
-    public IActionResult Index()
-    {
-        return View();
-    }
+    
 }
