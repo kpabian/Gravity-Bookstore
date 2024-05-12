@@ -1,4 +1,5 @@
 ﻿using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
 
 namespace GravityBookstore.IRepositories;
 

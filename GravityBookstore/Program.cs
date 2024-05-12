@@ -25,7 +25,10 @@ namespace GravityBookstore
 
             builder.Services.AddControllers();
            
-            builder.Services.AddDbContext<AppDbContext>();
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase"))
+            );
+
 
             //AutoMapper
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
