@@ -2,6 +2,8 @@
 using GravityBookstore.IRepositories;
 using GravityBookstore.IServices;
 using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
+using GravityBookstore.Repositories;
 
 namespace GravityBookstore.Services;
 
@@ -19,9 +21,11 @@ public class AuthorService : IAuthorService
         throw new NotImplementedException();
     }
 
-    public async Task<List<Author>> Get(int id)
+    public async Task<List<AuthorDto>> Get(int id)
     {
-        throw new NotImplementedException();
+        var result = await _authorRepository.Get(id);
+        var mappedResult = _mapper.Map<List<AuthorDto>>(result);
+        return mappedResult;
     }
 
     public async Task<int> Post(Author author)

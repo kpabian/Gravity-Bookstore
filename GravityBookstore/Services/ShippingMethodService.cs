@@ -2,6 +2,8 @@
 using GravityBookstore.IRepositories;
 using GravityBookstore.IServices;
 using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
+using GravityBookstore.Repositories;
 
 namespace GravityBookstore.Services
 {
@@ -9,9 +11,9 @@ namespace GravityBookstore.Services
     {
         private readonly IShippingMethodRepository _shippingMethodRepository;
         private readonly IMapper _mapper;
-        public ShippingMethodService(IShippingMethodRepository _shippingMethodRepository, IMapper mapper)
+        public ShippingMethodService(IShippingMethodRepository shippingMethodRepository, IMapper mapper)
         {
-            _shippingMethodRepository = _shippingMethodRepository;
+            _shippingMethodRepository = shippingMethodRepository;
             _mapper = mapper;
         }
         public async Task<bool> Delete(int id)
@@ -19,9 +21,11 @@ namespace GravityBookstore.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<Shipping_method>> Get(int id)
+        public async Task<List<ShippingMethodDto>> Get(int id)
         {
-            throw new NotImplementedException();
+            var result = await _shippingMethodRepository.Get(id);
+            var mappedResult = _mapper.Map<List<ShippingMethodDto>>(result);
+            return mappedResult;
         }
 
         public async Task<int> Post(Shipping_method shippingMethod)

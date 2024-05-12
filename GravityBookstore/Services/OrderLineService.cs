@@ -2,6 +2,8 @@
 using GravityBookstore.IRepositories;
 using GravityBookstore.IServices;
 using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
+using GravityBookstore.Repositories;
 
 namespace GravityBookstore.Services
 {
@@ -19,9 +21,11 @@ namespace GravityBookstore.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<Order_line>> Get(int id)
+        public async Task<List<OrderLineDto>> Get(int id)
         {
-            throw new NotImplementedException();
+            var result = await _orderLineRepository.Get(id);
+            var mappedResult = _mapper.Map<List<OrderLineDto>>(result);
+            return mappedResult;
         }
 
         public async Task<int> Post(Order_line orderLine)
