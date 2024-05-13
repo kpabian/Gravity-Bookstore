@@ -24,19 +24,7 @@ public class AuthorRepository : IAuthorRepository
         return author.Author_id;
     }
 
-    public async Task<bool> DeleteAuthor(int id)
-    {
-        Author? existingAuthor = await _context.Authors.FindAsync(id);
-        if (existingAuthor is null)
-        {
-            return false;
-        }
-        _context.Authors.Remove(existingAuthor);
-        await _context.SaveChangesAsync();
-        return true;
-    }
-
-    public async Task<List<Author>> Get(int? id)
+    public async Task<List<Author>> Get(int? id = null)
     {
         IQueryable<Author> query = _context.Authors.AsQueryable();
 
@@ -51,6 +39,26 @@ public class AuthorRepository : IAuthorRepository
 
     public async Task<bool> UpdateAuthor(Author author, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Author> query = _context.Authors.AsQueryable();
+        Author? existingAuthor = await query.FirstOrDefaultAsync(x => x.Author_id == id);
+        if (existingAuthor is null)
+        {
+            return false;
+        }
+        existingAuthor.Author_name = author.Author_name;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> DeleteAuthor(int id)
+    {
+        Author? existingAuthor = await _context.Authors.FindAsync(id);
+        if (existingAuthor is null)
+        {
+            return false;
+        }
+        _context.Authors.Remove(existingAuthor);
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

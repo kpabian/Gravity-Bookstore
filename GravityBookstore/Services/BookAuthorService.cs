@@ -16,9 +16,10 @@ namespace GravityBookstore.Services
             _bookAuthorRepository = bookAuthorRepository;
             _mapper = mapper;
         }
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(int AuthorId, int BookId)
         {
-            throw new NotImplementedException();
+            var result = await _bookAuthorRepository.DeleteBookAuthor(AuthorId, BookId);
+            return result;
         }
 
         public async Task<List<BookAuthorDto>> Get(int AuthorId, int BookId)
@@ -28,14 +29,16 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Book_author bookAuthor)
+        public async Task<(int, int)> Post(Book_author bookAuthor)
         {
-            throw new NotImplementedException();
+            var result = await _bookAuthorRepository.CreateBookAuthor(bookAuthor);
+            return result;
         }
 
         public async Task<bool> Put(Book_author bookAuthor, int id)
         {
-            throw new NotImplementedException();
+            var result = await _bookAuthorRepository.UpdateBookAuthor(bookAuthor, id);
+            return result;
         }
     }
 }

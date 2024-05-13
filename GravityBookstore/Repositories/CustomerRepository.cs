@@ -26,7 +26,15 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<bool> DeleteCustomer(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Customer> query = _context.Customers.AsQueryable();
+        Customer? existingCustomer = await query.FirstOrDefaultAsync(x => x.Customer_id == id);
+        if (existingCustomer is null)
+        {
+            return false;
+        }
+        _context.Customers.Remove(existingCustomer);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Customer>> Get(int? id)
@@ -44,6 +52,16 @@ public class CustomerRepository : ICustomerRepository
 
     public async Task<bool> UpdateCustomer(Customer customer, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Customer> query = _context.Customers.AsQueryable();
+        Customer? existingCustomer = await query.FirstOrDefaultAsync(x => x.Customer_id == id);
+        if (existingCustomer is null)
+        {
+            return false;
+        }
+        existingCustomer.First_name = customer.First_name;
+        existingCustomer.Last_name = customer.Last_name;
+        existingCustomer.Email = customer.Email;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

@@ -55,7 +55,16 @@ public class  CustomerAddressRepository : ICustomerAddressRepository
 
     public async Task<bool> UpdateCustomerAddress(Customer_address customerAddress, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Customer_address> query = _context.CustomerAddresses.AsQueryable();
+        Customer_address? existingCustAddress = await query.FirstOrDefaultAsync(x => x.Address_id == id);
+        if (existingCustAddress is null)
+        {
+            return false;
+        }
+        existingCustAddress.Customer_id = customerAddress.Customer_id;
+        existingCustAddress.Address_id = customerAddress.Address_id;
+        await _context.SaveChangesAsync();
+        return true;
     }
 
 }

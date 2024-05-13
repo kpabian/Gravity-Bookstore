@@ -18,7 +18,8 @@ namespace GravityBookstore.Services
         }
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _orderStatusRepository.DeleteOrderStatus(id);
+            return result;
         }
 
         public async Task<List<OrderStatusDto>> Get(int id)
@@ -28,14 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Order_status orderStatus)
+        public async Task<int> Post(OrderStatusPostDto orderStatus)
         {
-            throw new NotImplementedException();
+            Order_status mappedOrderStatus = _mapper.Map<Order_status>(orderStatus);
+            int createOrderStatusDto = await _orderStatusRepository.CreateOrderStatus(mappedOrderStatus);
+            return createOrderStatusDto;
         }
 
         public async Task<bool> Put(Order_status orderStatus, int id)
         {
-            throw new NotImplementedException();
+            var result = await _orderStatusRepository.UpdateOrderStatus(orderStatus, id);
+            return result;
         }
     }
 }

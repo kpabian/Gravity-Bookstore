@@ -51,6 +51,19 @@ public class BookRepository : IBookRepository
 
     public async Task<bool> UpdateBook(Book book, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Book> query = _context.Books.AsQueryable();
+        Book? existingBook = await query.FirstOrDefaultAsync(x => x.Book_id == id);
+        if (existingBook is null)
+        {
+            return false;
+        }
+        existingBook.Title = book.Title;
+        existingBook.Isbn13 = book.Isbn13;
+        existingBook.Book_language_id = book.Book_language_id;
+        existingBook.Num_pages = book.Num_pages;
+        existingBook.Publication_date = book.Publication_date;
+        existingBook.Publisher_id = book.Publisher_id;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

@@ -26,4 +26,11 @@ public class AddressController : Controller
         }
         return Ok(result);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<int>> Post([FromBody] AddressPostDto address)
+    {
+        int result = await _addressService.Post(address);
+        return Ok(result);
+    }
 }

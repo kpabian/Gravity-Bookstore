@@ -26,7 +26,15 @@ public class OrderHistoryRepository : IOrderHistoryRepository
 
     public async Task<bool> DeleteOrderHistory(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Order_history> query = _context.OrderHistories.AsQueryable();
+        Order_history? existingOrderHistory = await query.FirstOrDefaultAsync(x => x.History_id == id);
+        if (existingOrderHistory is null)
+        {
+            return false;
+        }
+        _context.OrderHistories.Remove(existingOrderHistory);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Order_history>> Get(int? id)
@@ -44,6 +52,19 @@ public class OrderHistoryRepository : IOrderHistoryRepository
 
     public async Task<bool> UpdateOrderHistory(Order_history orderHistory, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Order_history> query = _context.OrderHistories.AsQueryable();
+        Order_history? existingOrderHistory = await query.FirstOrDefaultAsync(x => x.History_id == id);
+        if (existingOrderHistory is null)
+        {
+            return false;
+        }
+        existingOrderHistory.History_id = orderHistory.History_id;
+        existingOrderHistory.Cust_order_id = orderHistory.Cust_order_id;
+        existingOrderHistory.Cust_order = orderHistory.Cust_order;
+        existingOrderHistory.Status_id = orderHistory.Status_id;
+        existingOrderHistory.Status = orderHistory.Status;
+        existingOrderHistory.Status_date = orderHistory.Status_date;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

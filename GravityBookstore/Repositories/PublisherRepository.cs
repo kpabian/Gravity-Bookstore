@@ -2,7 +2,6 @@
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace GravityBookstore.Repositories;
 
@@ -26,7 +25,15 @@ public class PublisherRepository : IPublisherRepository
 
     public async Task<bool> DeletePublisher(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Publisher> query = _context.Publishers.AsQueryable();
+        Publisher? existingPublisher = await query.FirstOrDefaultAsync(x => x.Publisher_id == id);
+        if (existingPublisher is null)
+        {
+            return false;
+        }
+        _context.Publishers.Remove(existingPublisher);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Publisher>> Get(int? id)
@@ -44,6 +51,14 @@ public class PublisherRepository : IPublisherRepository
 
     public async Task<bool> UpdatePublisher(Publisher publisher, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Publisher> query = _context.Publishers.AsQueryable();
+        Publisher? existingPublisher = await query.FirstOrDefaultAsync(x => x.Publisher_id == id);
+        if (existingPublisher is null)
+        {
+            return false;
+        }
+        existingPublisher.Publisher_name = publisher.Publisher_name;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

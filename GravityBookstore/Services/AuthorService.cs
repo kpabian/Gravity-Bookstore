@@ -3,7 +3,6 @@ using GravityBookstore.IRepositories;
 using GravityBookstore.IServices;
 using GravityBookstore.Models;
 using GravityBookstore.ModelsDto;
-using GravityBookstore.Repositories;
 
 namespace GravityBookstore.Services;
 
@@ -18,7 +17,8 @@ public class AuthorService : IAuthorService
     }
     public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        bool deleteAuthorDto = await _authorRepository.DeleteAuthor(id);
+        return deleteAuthorDto;
     }
 
     public async Task<List<AuthorDto>> Get(int id)
@@ -28,13 +28,17 @@ public class AuthorService : IAuthorService
         return mappedResult;
     }
 
-    public async Task<int> Post(Author author)
+    public async Task<int> Post(AuthorPostDto author)
     {
-        throw new NotImplementedException();
+        Author mappedAuthor = _mapper.Map<Author>(author);
+        int createAuthorDto = await _authorRepository.CreateAuthor(mappedAuthor);
+        return createAuthorDto;
     }
 
-    public async Task<bool> Put(Author author, int id)
+    public async Task<bool> Put(AuthorPostDto author, int id)
     {
-        throw new NotImplementedException();
+        Author mappedAuthor = _mapper.Map<Author>(author);
+        bool updateAuthorDto = await _authorRepository.UpdateAuthor(mappedAuthor, id);
+        return updateAuthorDto;
     }
 }

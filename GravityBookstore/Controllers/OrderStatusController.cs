@@ -1,5 +1,7 @@
 ﻿using GravityBookstore.IServices;
+using GravityBookstore.Models;
 using GravityBookstore.ModelsDto;
+using GravityBookstore.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GravityBookstore.Controllers;
@@ -23,6 +25,12 @@ public class OrderStatusController : Controller
         {
             return NotFound();
         }
+        return Ok(result);
+    }
+    [HttpPost]
+    public async Task<ActionResult<int>> Post([FromBody] OrderStatusPostDto  orderStatus)
+    {
+        int result = await _orderStatusService.Post(orderStatus);
         return Ok(result);
     }
 }

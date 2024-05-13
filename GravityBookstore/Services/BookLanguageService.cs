@@ -11,14 +11,17 @@ namespace GravityBookstore.Services
     {
         private readonly IBookLanguageRepository _bookLanguageRepository;
         private readonly IMapper _mapper;
+
         public BookLanguageService(IBookLanguageRepository bookLanguageRepository, IMapper mapper)
         {
             _bookLanguageRepository = bookLanguageRepository;
             _mapper = mapper;
         }
+
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var delete = await _bookLanguageRepository.DeleteBookLanguage(id);
+            return delete;
         }
 
         public async Task<List<BookLanguageDto>> Get(int id)
@@ -30,12 +33,14 @@ namespace GravityBookstore.Services
 
         public async Task<int> Post(Book_language bookLanguage)
         {
-            throw new NotImplementedException();
+            var result = await _bookLanguageRepository.CreateBookLanguage(bookLanguage);
+            return result;
         }
 
         public async Task<bool> Put(Book_language bookLanguage, int id)
         {
-            throw new NotImplementedException();
+            var result = await _bookLanguageRepository.UpdateBookLanguage(bookLanguage, id);
+            return result;
         }
     }
 }

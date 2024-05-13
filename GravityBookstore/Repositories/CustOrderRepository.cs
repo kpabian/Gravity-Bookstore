@@ -26,7 +26,15 @@ public class CustOrderRepository : ICustOrderRepository
 
     public async Task<bool> DeleteCustOrder(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Cust_order> query = _context.Orders.AsQueryable();
+        Cust_order? existingCustOrder = await query.FirstOrDefaultAsync(x => x.Order_id == id);
+        if (existingCustOrder is null)
+        {
+            return false;
+        }
+        _context.Orders.Remove(existingCustOrder);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Cust_order>> Get(int? id)
@@ -44,6 +52,17 @@ public class CustOrderRepository : ICustOrderRepository
 
     public async Task<bool> UpdateCustOrder(Cust_order custOrder, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Cust_order> query = _context.Orders.AsQueryable();
+        Cust_order? existingCustOrder = await query.FirstOrDefaultAsync(x => x.Order_id == id);
+        if (existingCustOrder is null)
+        {
+            return false;
+        }
+        existingCustOrder.Order_date = custOrder.Order_date;
+        existingCustOrder.Customer_id = custOrder.Customer_id;
+        existingCustOrder.Shipping_id = custOrder.Shipping_id;
+        existingCustOrder.Dest_address_id = custOrder.Dest_address_id;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

@@ -6,16 +6,9 @@ using System.Net;
 
 namespace GravityBookstore.Repositories;
 
-public class BookAuthorRepository : IBookAuthorRepository
+public class BookAuthorRepository(AppDbContext context) : IBookAuthorRepository
 {
-    private readonly AppDbContext _context;
-    private readonly ILogger _log;
-
-    public BookAuthorRepository(AppDbContext context, ILogger<BookAuthorRepository> log)
-    {
-        _context = context;
-        _log = log;
-    }
+    private readonly AppDbContext _context = context;
 
     public async Task<(int, int)> CreateBookAuthor(Book_author bookAuthor)
     {
@@ -24,9 +17,10 @@ public class BookAuthorRepository : IBookAuthorRepository
         return (bookAuthor.Author_id, bookAuthor.Book_id);
     }
 
-    public async Task<bool> DeleteBookAuthor(int id)
+    public async Task<bool> DeleteBookAuthor(int AuthorId, int BookId)
     {
-        Book_author? existingBookAuthor = await _context.BookAuthors.FindAsync(id);
+        IQueryable<Book_author> query = _context.BookAuthors.AsQueryable();
+        Book_author? existingBookAuthor = await query.FirstOrDefaultAsync(x => x.Author_id == AuthorId && x.Book_id == BookId);
         if (existingBookAuthor is null)
         {
             return false;
@@ -55,6 +49,15 @@ public class BookAuthorRepository : IBookAuthorRepository
 
     public async Task<bool> UpdateBookAuthor(Book_author bookAuthor, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Book_author> query = _context.BookAuthors.AsQueryable();
+        Book_author? existingBookAuthor = await query.FirstOrDefaultAsync(x => x.Book_id == id);
+        if (existingBookAuthor is null)
+        {
+            return false;
+        }
+        existingBookAuthor.Author_id = bookAuthor.Author_id;
+        existingBookAuthor.Book_id = bookAuthor.Book_id;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

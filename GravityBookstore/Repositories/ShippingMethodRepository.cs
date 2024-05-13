@@ -26,7 +26,15 @@ public class ShippingMethodRepository : IShippingMethodRepository
 
     public async Task<bool> DeleteShippingMethod(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Shipping_method> query = _context.ShippingMethods.AsQueryable();
+        Shipping_method? existingShippingMethod = await query.FirstOrDefaultAsync(x => x.Method_id == id);
+        if (existingShippingMethod is null)
+        {
+            return false;
+        }
+        _context.ShippingMethods.Remove(existingShippingMethod);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Shipping_method>> Get(int? id)
@@ -44,6 +52,16 @@ public class ShippingMethodRepository : IShippingMethodRepository
 
     public async Task<bool> UpdateShippingMethod(Shipping_method shippingMethod, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Shipping_method> query = _context.ShippingMethods.AsQueryable();
+        Shipping_method? existingShippingMethod = await query.FirstOrDefaultAsync(x => x.Method_id == id);
+        if (existingShippingMethod is null)
+        {
+            return false;
+        }
+        existingShippingMethod.Method_id = shippingMethod.Method_id;
+        existingShippingMethod.Method_name = shippingMethod.Method_name;
+        existingShippingMethod.Cost = shippingMethod.Cost;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

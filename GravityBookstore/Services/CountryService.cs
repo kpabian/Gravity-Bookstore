@@ -18,7 +18,8 @@ namespace GravityBookstore.Services
         }
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _countryRepository.DeleteCountry(id);
+            return result;
         }
 
         public async Task<List<CountryDto>> Get(int id)
@@ -30,12 +31,14 @@ namespace GravityBookstore.Services
 
         public async Task<int> Post(Country country)
         {
-            throw new NotImplementedException();
+            var result = await _countryRepository.CreateCountry(country);
+            return result;
         }
 
         public async Task<bool> Put(Country country, int id)
         {
-            throw new NotImplementedException();
+            var result = await _countryRepository.UpdateCountry(country, id);
+            return result;
         }
     }
 }

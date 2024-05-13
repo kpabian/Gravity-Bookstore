@@ -18,7 +18,8 @@ namespace GravityBookstore.Services
         }
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _shippingMethodRepository.DeleteShippingMethod(id);
+            return result;
         }
 
         public async Task<List<ShippingMethodDto>> Get(int id)
@@ -30,12 +31,14 @@ namespace GravityBookstore.Services
 
         public async Task<int> Post(Shipping_method shippingMethod)
         {
-            throw new NotImplementedException();
+            var result = await _shippingMethodRepository.CreateShippingMethod(shippingMethod);
+            return result;
         }
 
         public async Task<bool> Put(Shipping_method shippingMethod, int id)
         {
-            throw new NotImplementedException();
+            var result = await _shippingMethodRepository.UpdateShippingMethod(shippingMethod, id);
+            return result;
         }
     }
 }

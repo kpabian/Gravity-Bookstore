@@ -51,6 +51,14 @@ public class CountryRepository : ICountryRepository
 
     public async Task<bool> UpdateCountry(Country country, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Country> query = _context.Countries.AsQueryable();
+        Country? existingCountry = await query.FirstOrDefaultAsync(x => x.Country_id == id);
+        if (existingCountry is null)
+        {
+            return false;
+        }
+        existingCountry.Country_name = country.Country_name;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

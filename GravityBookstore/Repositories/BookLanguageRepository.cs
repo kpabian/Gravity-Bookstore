@@ -51,6 +51,14 @@ public class BookLanguageRepository : IBookLanguageRepository
 
     public async Task<bool> UpdateBookLanguage(Book_language bookLanguage, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Book_language> query = _context.BookLanguages.AsQueryable();
+        Book_language? existingBookLanguage = await query.FirstOrDefaultAsync(x => x.Language_id == id);
+        if (existingBookLanguage is null)
+        {
+            return false;
+        }
+        existingBookLanguage.Language_name = bookLanguage.Language_name;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

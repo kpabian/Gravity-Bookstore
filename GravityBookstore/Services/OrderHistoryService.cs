@@ -18,7 +18,8 @@ namespace GravityBookstore.Services
         }
         public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var result = await _orderHistoryRepository.DeleteOrderHistory(id);
+            return result;
         }
 
         public async Task<List<OrderHistoryDto>> Get(int id)
@@ -30,12 +31,14 @@ namespace GravityBookstore.Services
 
         public async Task<int> Post(Order_history orderHistory)
         {
-            throw new NotImplementedException();
+            var result = await _orderHistoryRepository.CreateOrderHistory(orderHistory);
+            return result;
         }
 
         public async Task<bool> Put(Order_history orderHistory, int id)
         {
-            throw new NotImplementedException();
+            var result = await _orderHistoryRepository.UpdateOrderHistory(orderHistory, id);
+            return result;
         }
     }
 }

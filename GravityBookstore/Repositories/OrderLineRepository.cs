@@ -26,7 +26,15 @@ public class OrderLineRepository : IOrderLineRepository
 
     public async Task<bool> DeleteOrderLine(int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Order_line> query = _context.OrderLines.AsQueryable();
+        Order_line? existingOrderLine = await query.FirstOrDefaultAsync(x => x.Line_id == id);
+        if (existingOrderLine is null)
+        {
+            return false;
+        }
+        _context.OrderLines.Remove(existingOrderLine);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Order_line>> Get(int? id)
@@ -44,6 +52,18 @@ public class OrderLineRepository : IOrderLineRepository
 
     public async Task<bool> UpdateOrderLine(Order_line orderLine, int id)
     {
-        throw new NotImplementedException();
+        IQueryable<Order_line> query = _context.OrderLines.AsQueryable();
+        Order_line? existingOrderLine = await query.FirstOrDefaultAsync(x => x.Line_id == id);
+        if (existingOrderLine is null)
+        {
+            return false;
+        }
+        existingOrderLine.Line_id = orderLine.Line_id;
+        existingOrderLine.Cust_order_id = orderLine.Cust_order_id;
+        existingOrderLine.Cust_order = orderLine.Cust_order;
+        existingOrderLine.Book_id = orderLine.Book_id;
+        existingOrderLine.Price = orderLine.Price;
+        await _context.SaveChangesAsync();
+        return true;
     }
 }
