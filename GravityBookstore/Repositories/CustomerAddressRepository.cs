@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -25,12 +26,31 @@ public class  CustomerAddressRepository : ICustomerAddressRepository
 
     public async Task<bool> DeleteCustomerAddress(int id)
     {
-        throw new NotImplementedException();
+        Customer_address? existingCustAddress = await _context.CustomerAddresses.FindAsync(id);
+        if (existingCustAddress is null)
+        {
+            return false;
+        }
+        _context.CustomerAddresses.Remove(existingCustAddress);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task<List<Customer_address>> Get(int? id)
+    public async Task<List<Customer_address>> Get(int? CustId, int? AddressId)
     {
-        throw new NotImplementedException();
+        IQueryable<Customer_address> query = _context.CustomerAddresses.AsQueryable();
+
+        if (CustId != null)
+        {
+            query = query.Where(x => x.Customer_id == CustId);
+        }
+        if (AddressId != null)
+        {
+            query = query.Where(x => x.Address_id == AddressId);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateCustomerAddress(Customer_address customerAddress, int id)

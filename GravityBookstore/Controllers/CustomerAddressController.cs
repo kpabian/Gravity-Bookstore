@@ -17,9 +17,9 @@ public class CustomerAddressController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CustomerAddressDto>>> Get([FromQuery] int id)
+    public async Task<ActionResult<List<CustomerAddressDto>>> Get([FromQuery] int CustId, int AddressId)
     {
-        List<CustomerAddressDto> result = await _customerAddressService.Get(id);
+        List<CustomerAddressDto> result = await _customerAddressService.Get(CustId, AddressId);
         if (result.Count <= 0)
         {
             return NotFound();

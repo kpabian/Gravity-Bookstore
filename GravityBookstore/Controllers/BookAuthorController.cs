@@ -16,9 +16,9 @@ public class BookAuthorController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<BookAuthorDto>>> Get([FromQuery] int id)
+    public async Task<ActionResult<List<BookAuthorDto>>> Get([FromQuery] int AuthorId, int BookId)
     {
-        List<BookAuthorDto> result = await _bookAuthorService.Get(id);
+        List<BookAuthorDto> result = await _bookAuthorService.Get(AuthorId, BookId);
         if (result.Count <= 0)
         {
             return NotFound();

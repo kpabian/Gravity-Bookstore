@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -25,12 +26,27 @@ public class BookLanguageRepository : IBookLanguageRepository
 
     public async Task<bool> DeleteBookLanguage(int id)
     {
-        throw new NotImplementedException();
+        Book_language? existingBookLanguage = await _context.BookLanguages.FindAsync(id);
+        if (existingBookLanguage is null)
+        {
+            return false;
+        }
+        _context.BookLanguages.Remove(existingBookLanguage);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Book_language>> Get(int? id)
     {
-        throw new NotImplementedException();
+        IQueryable<Book_language> query = _context.BookLanguages.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Language_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateBookLanguage(Book_language bookLanguage, int id)

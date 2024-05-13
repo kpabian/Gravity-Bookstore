@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -25,12 +26,31 @@ public class BookAuthorRepository : IBookAuthorRepository
 
     public async Task<bool> DeleteBookAuthor(int id)
     {
-        throw new NotImplementedException();
+        Book_author? existingBookAuthor = await _context.BookAuthors.FindAsync(id);
+        if (existingBookAuthor is null)
+        {
+            return false;
+        }
+        _context.BookAuthors.Remove(existingBookAuthor);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task<List<Book_author>> Get(int? id)
+    public async Task<List<Book_author>> Get(int? AuthorId, int? BookId)
     {
-        throw new NotImplementedException();
+        IQueryable<Book_author> query = _context.BookAuthors.AsQueryable();
+
+        if (AuthorId != null)
+        {
+            query = query.Where(x => x.Author_id == AuthorId);
+        }
+        if (BookId != null)
+        {
+            query = query.Where(x => x.Book_id == BookId);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateBookAuthor(Book_author bookAuthor, int id)

@@ -21,9 +21,9 @@ namespace GravityBookstore.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CustomerAddressDto>> Get(int id)
+        public async Task<List<CustomerAddressDto>> Get(int CustId, int AddressId)
         {
-            var result = await _customerAddressRepository.Get(id);
+            var result = await _customerAddressRepository.Get(CustId, AddressId);
             var mappedResult = _mapper.Map<List<CustomerAddressDto>>(result);
             return mappedResult;
         }

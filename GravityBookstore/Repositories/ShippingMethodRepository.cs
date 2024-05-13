@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -30,7 +31,15 @@ public class ShippingMethodRepository : IShippingMethodRepository
 
     public async Task<List<Shipping_method>> Get(int? id)
     {
-        throw new NotImplementedException();
+        IQueryable<Shipping_method> query = _context.ShippingMethods.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Method_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateShippingMethod(Shipping_method shippingMethod, int id)

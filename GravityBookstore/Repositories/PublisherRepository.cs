@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -30,7 +31,15 @@ public class PublisherRepository : IPublisherRepository
 
     public async Task<List<Publisher>> Get(int? id)
     {
-        throw new NotImplementedException();
+        IQueryable<Publisher> query = _context.Publishers.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Publisher_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdatePublisher(Publisher publisher, int id)

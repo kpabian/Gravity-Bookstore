@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -25,12 +26,27 @@ public class CountryRepository : ICountryRepository
 
     public async Task<bool> DeleteCountry(int id)
     {
-        throw new NotImplementedException();
+        Country? existingCountry = await _context.Countries.FindAsync(id);
+        if (existingCountry is null)
+        {
+            return false;
+        }
+        _context.Countries.Remove(existingCountry);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
     public async Task<List<Country>> Get(int? id)
     {
-        throw new NotImplementedException();
+        IQueryable<Country> query = _context.Countries.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Country_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateCountry(Country country, int id)

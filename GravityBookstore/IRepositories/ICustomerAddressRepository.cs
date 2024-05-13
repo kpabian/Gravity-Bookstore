@@ -4,7 +4,7 @@ namespace GravityBookstore.IRepositories;
 
 public interface ICustomerAddressRepository
 {
-    Task<List<Customer_address>> Get(int? id);
+    Task<List<Customer_address>> Get(int? CustId, int? AddressId);
     Task<(int, int)> CreateCustomerAddress(Customer_address customerAddress);
     Task<bool> UpdateCustomerAddress(Customer_address customerAddress, int id);
     Task<bool> DeleteCustomerAddress(int id);

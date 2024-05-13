@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace GravityBookstore.Repositories;
@@ -30,7 +31,15 @@ public class OrderLineRepository : IOrderLineRepository
 
     public async Task<List<Order_line>> Get(int? id)
     {
-        throw new NotImplementedException();
+        IQueryable<Order_line> query = _context.OrderLines.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Line_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
     }
 
     public async Task<bool> UpdateOrderLine(Order_line orderLine, int id)
