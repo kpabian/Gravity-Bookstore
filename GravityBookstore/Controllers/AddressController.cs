@@ -1,7 +1,5 @@
 ﻿using GravityBookstore.IServices;
-using GravityBookstore.Models;
 using GravityBookstore.ModelsDto;
-using GravityBookstore.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GravityBookstore.Controllers;

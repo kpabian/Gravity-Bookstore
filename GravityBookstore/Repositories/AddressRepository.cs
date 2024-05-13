@@ -57,7 +57,6 @@ public class AddressRepository : IAddressRepository
         {
             return false;
         }
-        existingAddress.Address_id = address.Address_id;
         existingAddress.Street_number = address.Street_number;
         existingAddress.Street_name = address.Street_name;
         existingAddress.City = address.City;

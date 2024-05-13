@@ -24,7 +24,7 @@ public class Mapper : Profile
         CreateMap<Shipping_method, ShippingMethodDto>();
         CreateMap<Publisher, PublisherDto>();
 
-        CreateMap<AddressPostDto, AddressPostDto>();
+        CreateMap<AddressPostDto, Address>();
         CreateMap<AddressStatusPostDto, Address_status>();
         CreateMap<AuthorPostDto, Author>();
         CreateMap<BookPostDto, Book>();

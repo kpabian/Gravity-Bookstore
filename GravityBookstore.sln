@@ -5,6 +5,11 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GravityBookstore", "GravityBookstore\GravityBookstore.csproj", "{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{26AA39DC-7DD0-4834-931E-114A69A7037C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D} = {E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +20,10 @@ Global
 		{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26AA39DC-7DD0-4834-931E-114A69A7037C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26AA39DC-7DD0-4834-931E-114A69A7037C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26AA39DC-7DD0-4834-931E-114A69A7037C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26AA39DC-7DD0-4834-931E-114A69A7037C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
