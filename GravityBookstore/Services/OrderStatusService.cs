@@ -36,9 +36,10 @@ namespace GravityBookstore.Services
             return createOrderStatusDto;
         }
 
-        public async Task<bool> Put(Order_status orderStatus, int id)
+        public async Task<bool> Put(OrderStatusPostDto orderStatus, int id)
         {
-            var result = await _orderStatusRepository.UpdateOrderStatus(orderStatus, id);
+            var mappedOrderStatus = _mapper.Map<Order_status>(orderStatus);
+            var result = await _orderStatusRepository.UpdateOrderStatus(mappedOrderStatus, id);
             return result;
         }
     }

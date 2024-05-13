@@ -7,7 +7,7 @@ namespace GravityBookstore.IServices;
 public interface ICustOrderService
 {
     Task<List<CustOrderDto>> Get(int id);
-    Task<int> Post(Cust_order custOrder);
-    Task<bool> Put(Cust_order custOrder, int id);
+    Task<int> Post(CustOrderPostDto custOrder);
+    Task<bool> Put(CustOrderPostDto custOrder, int id);
     Task<bool> Delete(int id);
 }

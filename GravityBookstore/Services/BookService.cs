@@ -29,15 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Book book)
+        public async Task<int> Post(BookPostDto book)
         {
-            var result = await _bookRepository.CreateBook(book);
+            var mappedBook = _mapper.Map<Book>(book);
+            var result = await _bookRepository.CreateBook(mappedBook);
             return result;
         }
 
-        public async Task<bool> Put(Book book, int id)
+        public async Task<bool> Put(BookPostDto book, int id)
         {
-            var result = await _bookRepository.UpdateBook(book, id);
+            var mappedBook = _mapper.Map<Book>(book);   
+            var result = await _bookRepository.UpdateBook(mappedBook, id);
             return result;
         }
     }

@@ -8,6 +8,6 @@ public interface IOrderStatusService
 {
     Task<List<OrderStatusDto>> Get(int id);
     Task<int> Post(OrderStatusPostDto orderStatus);
-    Task<bool> Put(Order_status orderStatus, int id);
+    Task<bool> Put(OrderStatusPostDto orderStatus, int id);
     Task<bool> Delete(int id);
 }

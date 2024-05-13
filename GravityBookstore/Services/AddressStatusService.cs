@@ -29,15 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Address_status addressStatus)
+        public async Task<int> Post(AddressStatusPostDto addressStatus)
         {
-            var result = await _addressStatusRepository.CreateAddressStatus(addressStatus);
+            var mappedAddressStatus = _mapper.Map<Address_status>(addressStatus);
+            var result = await _addressStatusRepository.CreateAddressStatus(mappedAddressStatus);
             return result;
         }
 
-        public async Task<bool> Put(Address_status addressStatus, int id)
+        public async Task<bool> Put(AddressStatusPostDto addressStatus, int id)
         {
-            var result = await _addressStatusRepository.UpdateAddressStatus(addressStatus, id);
+            var mappedAddressStatus = _mapper.Map<Address_status>(addressStatus);
+            var result = await _addressStatusRepository.UpdateAddressStatus(mappedAddressStatus, id);
             return result;
         }
     }

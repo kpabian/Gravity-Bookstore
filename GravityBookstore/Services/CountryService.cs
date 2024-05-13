@@ -29,15 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Country country)
+        public async Task<int> Post(CountryPostDto country)
         {
-            var result = await _countryRepository.CreateCountry(country);
+            var mappedCountry = _mapper.Map<Country>(country);
+            var result = await _countryRepository.CreateCountry(mappedCountry);
             return result;
         }
 
-        public async Task<bool> Put(Country country, int id)
+        public async Task<bool> Put(CountryPostDto country, int id)
         {
-            var result = await _countryRepository.UpdateCountry(country, id);
+            var mappedCountry = _mapper.Map<Country>(country);
+            var result = await _countryRepository.UpdateCountry(mappedCountry, id);
             return result;
         }
     }

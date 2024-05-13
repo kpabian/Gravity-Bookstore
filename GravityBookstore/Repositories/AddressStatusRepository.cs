@@ -58,7 +58,6 @@ public class AddressStatusRepository : IAddressStatusRepository
         existingAddressStatus.Status_id = addressStatus.Status_id;
         existingAddressStatus.Status_value = addressStatus.Status_value;
 
-
         await _context.SaveChangesAsync();
         return true;
     }

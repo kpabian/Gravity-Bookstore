@@ -39,7 +39,6 @@ namespace GravityBookstore
             builder.Services.AddScoped<IAddressStatusService, AddressStatusService>();
             builder.Services.AddScoped<IAuthorService, AuthorService>();
             builder.Services.AddScoped<IBookService, BookService>();
-            builder.Services.AddScoped<IBookAuthorService, BookAuthorService>();
             builder.Services.AddScoped<IBookLanguageService, BookLanguageService>();
             builder.Services.AddScoped<ICountryService, CountryService>();
             builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
@@ -56,7 +55,6 @@ namespace GravityBookstore
             builder.Services.AddScoped<IAddressStatusRepository, AddressStatusRepository>();
             builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
             builder.Services.AddScoped<IBookRepository, BookRepository>();
-            builder.Services.AddScoped<IBookAuthorRepository, BookAuthorRepository>();
             builder.Services.AddScoped<IBookLanguageRepository, BookLanguageRepository>();
             builder.Services.AddScoped<ICountryRepository, CountryRepository>();
             builder.Services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();

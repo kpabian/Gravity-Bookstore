@@ -29,15 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Shipping_method shippingMethod)
+        public async Task<int> Post(ShippingMethodPostDto shippingMethod)
         {
-            var result = await _shippingMethodRepository.CreateShippingMethod(shippingMethod);
+            var mappedShippingMethod = _mapper.Map<Shipping_method>(shippingMethod);
+            var result = await _shippingMethodRepository.CreateShippingMethod(mappedShippingMethod);
             return result;
         }
 
-        public async Task<bool> Put(Shipping_method shippingMethod, int id)
+        public async Task<bool> Put(ShippingMethodPostDto shippingMethod, int id)
         {
-            var result = await _shippingMethodRepository.UpdateShippingMethod(shippingMethod, id);
+            var mappedShippingMethod = _mapper.Map<Shipping_method>(shippingMethod);
+            var result = await _shippingMethodRepository.UpdateShippingMethod(mappedShippingMethod, id);
             return result;
         }
     }

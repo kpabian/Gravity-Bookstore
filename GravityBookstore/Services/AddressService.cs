@@ -24,15 +24,17 @@ public class AddressService(IAddressRepository addressRepository, IMapper mapper
         return mappedResult;
     }
 
-    public async Task<int> Post(Address address)
+    public async Task<int> Post(AddressPostDto address)
     {
-        var result = await _addressRepository.CreateAddress(address);
+        var mappedAddress = _mapper.Map<Address>(address);
+        var result = await _addressRepository.CreateAddress(mappedAddress);
         return result;
     }
 
-    public async Task<bool> Put(Address address, int id)
+    public async Task<bool> Put(AddressPostDto address, int id)
     {
-        var result = await _addressRepository.UpdateAddress(address, id);
+        var mappedAddress = _mapper.Map<Address>(address);
+        var result = await _addressRepository.UpdateAddress(mappedAddress, id);
         return result;
     }
 }

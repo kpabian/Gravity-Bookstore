@@ -29,15 +29,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Order_history orderHistory)
+        public async Task<int> Post(OrderHistoryPostDto orderHistory)
         {
-            var result = await _orderHistoryRepository.CreateOrderHistory(orderHistory);
+            var mappedOrderHistory = _mapper.Map<Order_history>(orderHistory);
+            var result = await _orderHistoryRepository.CreateOrderHistory(mappedOrderHistory);
             return result;
         }
 
-        public async Task<bool> Put(Order_history orderHistory, int id)
+        public async Task<bool> Put(OrderHistoryPostDto orderHistory, int id)
         {
-            var result = await _orderHistoryRepository.UpdateOrderHistory(orderHistory, id);
+            var mappedOrderHistory = _mapper.Map<Order_history>(orderHistory);
+            var result = await _orderHistoryRepository.UpdateOrderHistory(mappedOrderHistory, id);
             return result;
         }
     }

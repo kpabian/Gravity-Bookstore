@@ -25,15 +25,17 @@ public class CustomerAddressService(ICustomerAddressRepository customerAddressRe
         return mappedResult;
     }
 
-    public async Task<(int, int)> Post(Customer_address customerAddress)
+    public async Task<(int, int)> Post(CustomerAddressPostDto customerAddress)
     {
-        var result = await _customerAddressRepository.CreateCustomerAddress(customerAddress);
+        var mappedCustomerAddress = _mapper.Map<Customer_address>(customerAddress);
+        var result = await _customerAddressRepository.CreateCustomerAddress(mappedCustomerAddress);
         return result;
     }
 
-    public async Task<bool> Put(Customer_address customerAddress, int id)
+    public async Task<bool> Put(CustomerAddressPostDto customerAddress, int id)
     {
-        var result = await _customerAddressRepository.UpdateCustomerAddress(customerAddress, id);
+        var mappedCustomerAddress = _mapper.Map<Customer_address>(customerAddress);
+        var result = await _customerAddressRepository.UpdateCustomerAddress(mappedCustomerAddress, id);
         return result;
     }
 }

@@ -27,10 +27,33 @@ public class OrderStatusController : Controller
         }
         return Ok(result);
     }
+
     [HttpPost]
-    public async Task<ActionResult<int>> Post([FromBody] OrderStatusPostDto  orderStatus)
+    public async Task<ActionResult<int>> Post([FromBody] OrderStatusPostDto orderStatus)
     {
         int result = await _orderStatusService.Post(orderStatus);
+        return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<bool>> Put(int id, [FromBody] OrderStatusPostDto orderStatus)
+    {
+        bool result = await _orderStatusService.Put(orderStatus, id);
+        if (!result)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<bool>> Delete(int id)
+    {
+        bool result = await _orderStatusService.Delete(id);
+        if (!result)
+        {
+            return NotFound();
+        }
         return Ok(result);
     }
 }

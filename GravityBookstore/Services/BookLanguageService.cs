@@ -31,15 +31,17 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
-        public async Task<int> Post(Book_language bookLanguage)
+        public async Task<int> Post(BookLanguagePostDto bookLanguage)
         {
-            var result = await _bookLanguageRepository.CreateBookLanguage(bookLanguage);
+            var mappedBookLanguage = _mapper.Map<Book_language>(bookLanguage);
+            var result = await _bookLanguageRepository.CreateBookLanguage(mappedBookLanguage);
             return result;
         }
 
-        public async Task<bool> Put(Book_language bookLanguage, int id)
+        public async Task<bool> Put(BookLanguagePostDto bookLanguage, int id)
         {
-            var result = await _bookLanguageRepository.UpdateBookLanguage(bookLanguage, id);
+            var mappedBookLanguage = _mapper.Map<Book_language>(bookLanguage);
+            var result = await _bookLanguageRepository.UpdateBookLanguage(mappedBookLanguage, id);
             return result;
         }
     }
