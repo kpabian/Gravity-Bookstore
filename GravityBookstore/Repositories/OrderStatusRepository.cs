@@ -58,7 +58,6 @@ public class OrderStatusRepository : IOrderStatusRepository
         {
             return false;
         }
-        existingOrderStatus.Status_id = orderStatus.Status_id;
         existingOrderStatus.Status_value = orderStatus.Status_value;
         return true;
     }

@@ -58,7 +58,6 @@ public class ShippingMethodRepository : IShippingMethodRepository
         {
             return false;
         }
-        existingShippingMethod.Method_id = shippingMethod.Method_id;
         existingShippingMethod.Method_name = shippingMethod.Method_name;
         existingShippingMethod.Cost = shippingMethod.Cost;
         await _context.SaveChangesAsync();

@@ -70,7 +70,7 @@ public class AppDbContext : DbContext
 
             entity.HasOne(e => e.Cust_order)
                 .WithMany(e => e.Order_lines)
-                .HasForeignKey(e => e.Line_id);
+                .HasForeignKey(e => e.Cust_order_id);
 
             entity.HasOne(e => e.Book)
                 .WithMany(e => e.Order_lines)

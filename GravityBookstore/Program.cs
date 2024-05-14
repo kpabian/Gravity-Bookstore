@@ -37,7 +37,6 @@ public class Program
         builder.Services.AddScoped<IBookService, BookService>();
         builder.Services.AddScoped<IBookLanguageService, BookLanguageService>();
         builder.Services.AddScoped<ICountryService, CountryService>();
-        builder.Services.AddScoped<ICustomerAddressService, CustomerAddressService>();
         builder.Services.AddScoped<ICustomerService, CustomerService>();
         builder.Services.AddScoped<ICustOrderService, CustOrderService>();
         builder.Services.AddScoped<IOrderHistoryService, OrderHistoryService>();
@@ -53,7 +52,6 @@ public class Program
         builder.Services.AddScoped<IBookRepository, BookRepository>();
         builder.Services.AddScoped<IBookLanguageRepository, BookLanguageRepository>();
         builder.Services.AddScoped<ICountryRepository, CountryRepository>();
-        builder.Services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
         builder.Services.AddScoped<ICustOrderRepository, CustOrderRepository>();
         builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();

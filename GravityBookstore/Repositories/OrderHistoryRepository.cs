@@ -58,7 +58,6 @@ public class OrderHistoryRepository : IOrderHistoryRepository
         {
             return false;
         }
-        existingOrderHistory.History_id = orderHistory.History_id;
         existingOrderHistory.Cust_order_id = orderHistory.Cust_order_id;
         existingOrderHistory.Cust_order = orderHistory.Cust_order;
         existingOrderHistory.Status_id = orderHistory.Status_id;

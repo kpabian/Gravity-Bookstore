@@ -58,7 +58,6 @@ public class OrderLineRepository : IOrderLineRepository
         {
             return false;
         }
-        existingOrderLine.Line_id = orderLine.Line_id;
         existingOrderLine.Cust_order_id = orderLine.Cust_order_id;
         existingOrderLine.Cust_order = orderLine.Cust_order;
         existingOrderLine.Book_id = orderLine.Book_id;
