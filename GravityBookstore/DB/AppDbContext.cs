@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace GravityBookstore.DB;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Author> Authors { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
@@ -21,17 +21,6 @@ public class AppDbContext : DbContext
     public DbSet<Order_status> OrderStatuses { get; set; }
     public DbSet<Order_line> OrderLines { get; set; }
     public DbSet<Order_history> OrderHistories { get; set; }
-
-
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
-
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //  optionsBuilder.UseNpgsql("Host = localhost; Database = Bookstore; username = postgres; Password = 1234");
-    //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

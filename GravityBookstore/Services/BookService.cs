@@ -29,6 +29,13 @@ namespace GravityBookstore.Services
             return mappedResult;
         }
 
+        public async Task<List<BookPublisherDto>> GetByPublisherName(string name)
+        {
+            var result = await _bookRepository.GetByPublisherName(name);
+            var mappedResult = _mapper.Map<List<BookPublisherDto>>(result);
+            return mappedResult;
+        }
+
         public async Task<int> Post(BookPostDto book)
         {
             var mappedBook = _mapper.Map<Book>(book);

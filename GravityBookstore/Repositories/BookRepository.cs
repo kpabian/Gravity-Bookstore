@@ -1,8 +1,8 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace GravityBookstore.Repositories;
 
@@ -15,6 +15,30 @@ public class BookRepository : IBookRepository
     {
         _context = context;
         _log = log;
+    }
+
+    public async Task<List<Book>> Get(int? id)
+    {
+        IQueryable<Book> query = _context.Books.AsQueryable();
+
+        if (id != null)
+        {
+            query = query.Where(x => x.Book_id == id);
+        }
+
+        var result = await query.ToListAsync().ConfigureAwait(false);
+        return result;
+    }
+
+    public async Task<List<Book>> GetByPublisherName(string name)
+    {
+        IQueryable<Book> query = _context.Books
+                         .Include(x => x.Publisher)
+                         .Include(x => x.BookAuthors)
+                            .ThenInclude(x => x.Author).Where(x => x.Publisher.Publisher_name == name);
+        var result = await query.ToListAsync().ConfigureAwait(false);
+
+        return result;
     }
 
     public async Task<int> CreateBook(Book book)
@@ -34,19 +58,6 @@ public class BookRepository : IBookRepository
         _context.Books.Remove(existingBook);
         await _context.SaveChangesAsync();
         return true;
-    }
-
-    public async Task<List<Book>> Get(int? id)
-    {
-        IQueryable<Book> query = _context.Books.AsQueryable();
-
-        if (id != null)
-        {
-            query = query.Where(x => x.Book_id == id);
-        }
-
-        var result = await query.ToListAsync().ConfigureAwait(false);
-        return result;
     }
 
     public async Task<bool> UpdateBook(Book book, int id)

@@ -10,4 +10,5 @@ public interface IBookService
     Task<int> Post(BookPostDto book);
     Task<bool> Put(BookPostDto book, int id);
     Task<bool> Delete(int id);
+    Task<List<BookPublisherDto>> GetByPublisherName(string name);
 }

@@ -8,4 +8,5 @@ public interface IBookRepository
     Task<int> CreateBook(Book book);
     Task<bool> UpdateBook(Book book, int id);
     Task<bool> DeleteBook(int id);
+    Task<List<Book>> GetByPublisherName(string name);
 }

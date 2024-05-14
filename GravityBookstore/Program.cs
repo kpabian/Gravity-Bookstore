@@ -24,6 +24,7 @@ public class Program
        
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase"))
+            //options.UseInMemoryDatabase("GravityBookstore")
         );
 
 

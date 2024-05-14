@@ -1,4 +1,5 @@
 ﻿using GravityBookstore.IServices;
+using GravityBookstore.Models;
 using GravityBookstore.ModelsDto;
 using GravityBookstore.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,17 @@ public class BookController : Controller
     public async Task<ActionResult<List<BookDto>>> Get([FromQuery] int id)
     {
         List<BookDto> result = await _bookService.Get(id);
+        if (result.Count <= 0)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+
+    [HttpGet("publisher")]
+    public async Task<ActionResult<List<BookPublisherDto>>> GetByPublisherName([FromQuery] string name)
+    {
+        List<BookPublisherDto> result = await _bookService.GetByPublisherName(name);
         if (result.Count <= 0)
         {
             return NotFound();

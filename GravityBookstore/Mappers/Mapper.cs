@@ -39,5 +39,7 @@ public class Mapper : Profile
         CreateMap<OrderStatusPostDto, Order_status>();
         CreateMap<ShippingMethodPostDto, Shipping_method>();
         CreateMap<PublisherPostDto, Publisher>();
+
+        CreateMap<Book, BookPublisherDto>();
     }
 }
