@@ -54,6 +54,7 @@ public class Program
         builder.Services.AddScoped<IBookLanguageRepository, BookLanguageRepository>();
         builder.Services.AddScoped<ICountryRepository, CountryRepository>();
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+        builder.Services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
         builder.Services.AddScoped<ICustOrderRepository, CustOrderRepository>();
         builder.Services.AddScoped<IOrderHistoryRepository, OrderHistoryRepository>();
         builder.Services.AddScoped<IOrderLineRepository, OrderLineRepository>();
