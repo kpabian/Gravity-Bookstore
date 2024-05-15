@@ -11,5 +11,4 @@ public class Customer
 	public string Email { get; set; }
 	public List<Customer_address>? Customer_address { get; set; }
 	public List<Cust_order>? Cust_order { get; set;}
-
 }

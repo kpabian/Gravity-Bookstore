@@ -5,9 +5,14 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GravityBookstore", "GravityBookstore\GravityBookstore.csproj", "{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{26AA39DC-7DD0-4834-931E-114A69A7037C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{26AA39DC-7DD0-4834-931E-114A69A7037C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D} = {E1AF37DD-2A8E-4D00-A53F-28A1DB7B8D7D}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA55B7F6-40C7-46B4-9D68-8A837090CE38}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject
 Global

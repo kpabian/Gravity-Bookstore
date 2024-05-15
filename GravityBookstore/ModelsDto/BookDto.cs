@@ -40,3 +40,10 @@ public class BookPublisherDto
     public List<BookAuthorDto>? BookAuthors { get; set; }
     public List<OrderLineDto>? Order_lines { get; set; }
 }
+
+public class OrderedBooksDto {
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Isbn { get; set; }
+    public int CopiesSold { get; set; }
+}

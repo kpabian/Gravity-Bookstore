@@ -4,6 +4,7 @@ using GravityBookstore.Models;
 
 namespace GravityBookstore.Repositories;
 
+
 public class CustomerAddressRepository : ICustomerAddressRepository
 {
     private readonly AppDbContext _context;
@@ -19,4 +20,7 @@ public class CustomerAddressRepository : ICustomerAddressRepository
         await _context.SaveChangesAsync();
         return customerAddress;
     }
+
 }
+
+

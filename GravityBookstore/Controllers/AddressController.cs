@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.IServices;
 using GravityBookstore.ModelsDto;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GravityBookstore.Controllers;
 
@@ -19,12 +20,13 @@ public class AddressController : Controller
     public async Task<ActionResult<List<AddressDto>>> Get([FromQuery] int id)
     {
         List<AddressDto> result = await _addressService.Get(id);
-        if (result.Count <= 0)
+        if (result.Count <= 0)  
         {
             return NotFound();
         }
         return Ok(result);
     }
+
 
     [HttpPost]
     public async Task<ActionResult<int>> Post([FromBody] AddressPostDto address)
@@ -54,4 +56,5 @@ public class AddressController : Controller
         }
         return Ok(result);
     }
+    
 }

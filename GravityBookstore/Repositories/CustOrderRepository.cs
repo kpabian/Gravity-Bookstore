@@ -1,6 +1,7 @@
 ﻿using GravityBookstore.DB;
 using GravityBookstore.IRepositories;
 using GravityBookstore.Models;
+using GravityBookstore.ModelsDto;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 
@@ -30,7 +31,7 @@ public class CustOrderRepository : ICustOrderRepository
         Cust_order? existingCustOrder = await query.FirstOrDefaultAsync(x => x.Order_id == id);
         if (existingCustOrder is null)
         {
-            return false;
+            return false;   
         }
         _context.Orders.Remove(existingCustOrder);
         await _context.SaveChangesAsync();
@@ -49,6 +50,28 @@ public class CustOrderRepository : ICustOrderRepository
         var result = await query.ToListAsync().ConfigureAwait(false);
         return result;
     }
+    
+    public async Task<List<OrderedBooksDto>> GetBooks(string language)
+    {
+        IQueryable<Book_language> langQuery = _context.BookLanguages.AsQueryable();
+        Book_language? lang = await langQuery.FirstOrDefaultAsync(x => x.Language_name == language);
+
+        IQueryable<Cust_order> ordersQuery = _context.Orders.Include(x => x.Order_lines).AsQueryable();
+        List<Order_line> orderLines = await ordersQuery.SelectMany(x => x.Order_lines).Include(x => x.Book).ToListAsync();
+
+        var books = orderLines
+            .GroupBy(x => x.Book_id)
+            .Select(x => x.First().Book)
+            .Where(x => x.Book_language_id == lang.Language_id)
+            .Select(x => new OrderedBooksDto
+            {
+                Id = x.Book_id,
+                Title = x.Title,
+                Isbn = x.Isbn13,
+                CopiesSold = orderLines.Count(y => y.Book_id == x.Book_id)
+            });
+        return books.ToList();
+    } 
 
     public async Task<bool> UpdateCustOrder(Cust_order custOrder, int id)
     {

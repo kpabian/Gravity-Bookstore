@@ -1,5 +1,6 @@
 ﻿using GravityBookstore.IServices;
 using GravityBookstore.ModelsDto;
+using GravityBookstore.Models;
 using GravityBookstore.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,18 @@ public class CustOrderController : Controller
         }
         return Ok(result);
     }
+    
+
+    [HttpGet("books")]
+    public async Task<ActionResult<List<OrderedBooksDto>>> GetBooks([FromQuery] string language)
+    {
+        List<OrderedBooksDto> result = await _custOrderService.GetBooks(language);
+        if (result.Count <= 0) 
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
 
     [HttpPost]
     public async Task<ActionResult<int>> Post([FromBody] CustOrderPostDto custOrder)
@@ -44,6 +57,7 @@ public class CustOrderController : Controller
         }
         return Ok(result);
     }
+
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> Delete(int id)
